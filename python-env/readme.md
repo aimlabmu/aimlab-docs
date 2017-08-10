@@ -29,6 +29,8 @@ proxy_servers:
     http: http://<mu proxy user>:<mu proxy pw>@proxy-si.mahidol:8080
 ```
 
+> *OpenCV installation using conda may be a bit tricky check [this](opencv/readme.md) out if you are stuck.*
+
 ### Git
 Git is a powerful Version Control System (DVCS) which helps a lot in any progamming related jobs. To install Git on Windows we just have to download and run an installer from [official website](https://git-scm.com/). No special settings is needed for Git in installation but on first run (Git Bash), it is recommended to set user `name` and `email` as shown in example below. 
 
