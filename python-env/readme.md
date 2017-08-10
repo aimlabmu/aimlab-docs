@@ -6,6 +6,7 @@
 
 ## Instruction
 - Download all dependencies and install them.
+- For Miniconda 3, **DO NOT** forget to check `Add Anaconda to my PATH environment variable` and `Register Anaconda as my default Python 3.6` otherwise you won't be able to use `conda` command in command line.
 
 ### Miniconda 3
 Since Miniconda is a small version of Anaconda, so it does not include any packages at installation. After installing Miniconda, we have to install packages by ourselves, some of the basic packages which is used regularly are listed as follows.
@@ -15,6 +16,17 @@ Since Miniconda is a small version of Anaconda, so it does not include any packa
 conda update conda
 # install basic packages
 conda install numpy pandas matplotlib scipy scikit-image scikit-learn jupyter notebook
+```
+
+#### Proxy settings for Anaconda
+According to [Anaconda official docs](https://conda.io/docs/config.html#configure-conda-for-use-behind-a-proxy-server-proxy-servers) we can set proxy for its package manager (`conda`). Add these lines to `~/.condarc` or `C:/Users/<username>/.condarc` to set proxy server for conda.
+
+```sh
+proxy_servers:
+    # for salaya campus
+    http: http://<mu proxy user>:<mu proxy pw>@proxy-sa.mahidol:8080
+    # for siriraj campus
+    http: http://<mu proxy user>:<mu proxy pw>@proxy-si.mahidol:8080
 ```
 
 ### Git
