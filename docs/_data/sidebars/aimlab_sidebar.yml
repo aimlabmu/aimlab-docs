@@ -11,7 +11,7 @@ entries:
     folderitems: 
     
     - title: Manual
-      url: /AimRobot_Manual.md
+      url: /AimRobot_Manual.html
       output: web, pdf
       
   - title: Linux
@@ -19,7 +19,7 @@ entries:
     folderitems: 
     
     - title: Unix Commands
-      url: /Linux_UnixCommands.md
+      url: /Linux_UnixCommands.html
       output: web, pdf
       
   - title: Python
@@ -27,10 +27,10 @@ entries:
     folderitems: 
     
     - title: Environtment Setup
-      url: /Python_EnvirontmentSetup.md
+      url: /Python_EnvirontmentSetup.html
       output: web, pdf
       
     - title: OpenCV
-      url: /Python_OpenCV.md
+      url: /Python_OpenCV.html
       output: web, pdf
       

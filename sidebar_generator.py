@@ -33,14 +33,14 @@ def addSecondLevelDocs(title, url='/index.html'):
   return(text) 
 
 def createYMLfile(content_dict):
-  with open('aimlab_sidebar.yml', 'w') as f:
+  with open('docs/_data/sidebars/aimlab_sidebar.yml', 'w') as f:
     f.write(addTopLevelDocs())
 
     for key in content_dict:
       f.write(addFirstLevelDocs(key))
 
       for val in content_dict[key]:
-        f.write(addSecondLevelDocs(val.keys()[0], url=val.get(val.keys()[0])))
+        f.write(addSecondLevelDocs(val, url='/'+utils.getJekyllDocsPath(content_dict[key][val])))
       
     f.close()
 
