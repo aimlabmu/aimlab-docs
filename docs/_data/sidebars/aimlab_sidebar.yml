@@ -6,12 +6,24 @@ entries:
   version: 
   folders:
   
-  - title: Aim Robot
+  - title: AIM Robot
     output: web, pdf
     folderitems: 
     
     - title: Manual
-      url: /AimRobot_Manual.html
+      url: /AIMRobot_Manual.html
+      output: web, pdf
+      
+  - title: AIMLAB Docs
+    output: web, pdf
+    folderitems: 
+    
+    - title: About
+      url: /AIMLABDocs_About.html
+      output: web, pdf
+      
+    - title: Contribution
+      url: /AIMLABDocs_Contribution.html
       output: web, pdf
       
   - title: Linux

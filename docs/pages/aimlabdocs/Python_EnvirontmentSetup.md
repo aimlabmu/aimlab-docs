@@ -1,6 +1,6 @@
 ---
 title: Setting up Python environment using Miniconda
-keywords: python, miniconda
+keywords: 
 sidebar: aimlab_sidebar
 permalink: Python_EnvirontmentSetup.html
 folder: aimlabdocs

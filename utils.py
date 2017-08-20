@@ -38,6 +38,12 @@ def getDocsTreePath():
   # print(tempDict)    
   return tempDict
 
-def getJekyllDocsPath(full_original_path):
+def getJekyllDocsPath(full_original_path, format='html'):
   temp = full_original_path.split(sep)
-  return "{0}_{1}.html".format(temp[-3], temp[-2]).replace(' ','')
+  if format == 'md':
+    return "{0}_{1}.md".format(temp[-3], temp[-2]).replace(' ','')
+  elif format == 'html':
+    return "{0}_{1}.html".format(temp[-3], temp[-2]).replace(' ','')
+  else:
+    print("Pls specify format as 'html' or 'md'")
+    return None
