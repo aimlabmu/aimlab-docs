@@ -36,7 +36,8 @@ def createYMLfile(content_dict):
   with open('docs/_data/sidebars/aimlab_sidebar.yml', 'w') as f:
     f.write(addTopLevelDocs())
 
-    for key in content_dict:
+    # sort key for alphabetically sorted sidebar
+    for key in sorted(content_dict):
       f.write(addFirstLevelDocs(key))
 
       for val in content_dict[key]:

@@ -26,6 +26,14 @@ entries:
       url: /AIMLABDocs_Contribution.html
       output: web, pdf
       
+  - title: Git
+    output: web, pdf
+    folderitems: 
+    
+    - title: About
+      url: /Git_About.html
+      output: web, pdf
+      
   - title: Linux
     output: web, pdf
     folderitems: 
@@ -38,11 +46,11 @@ entries:
     output: web, pdf
     folderitems: 
     
-    - title: Environtment Setup
-      url: /Python_EnvirontmentSetup.html
-      output: web, pdf
-      
     - title: OpenCV
       url: /Python_OpenCV.html
+      output: web, pdf
+      
+    - title: Environtment Setup
+      url: /Python_EnvirontmentSetup.html
       output: web, pdf
       
