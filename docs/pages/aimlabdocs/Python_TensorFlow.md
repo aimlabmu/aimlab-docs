@@ -1,4 +1,10 @@
-# Installing TensorFlow with GPU support
+---
+title: Installing TensorFlow with GPU support
+keywords: 
+sidebar: aimlab_sidebar
+permalink: Python_TensorFlow.html
+folder: aimlabdocs
+---
 
 ## First Thing First
 If you are not using Linux or have no plan to use GPU in computation, install the no-GPU version of TensorFlow following the guide [here](https://www.tensorflow.org/install/).
@@ -25,7 +31,7 @@ sudo apt-get install nvidia-<version> nvidia-settings
 
 Go to [CUDA Toolkit Download site](https://developer.nvidia.com/cuda-downloads) and download runfile based on your setup. For example Ubuntu 16.04 with x64 system will have to select like image below.
 
-![cuda-installation](img/cuda_runfile.png)
+![cuda-installation](pages/aimlabdocs/img/cuda_runfile.png)
 
 Then run following command (*note that you need to say **NO** to **DRIVER INSTALLATION**, the others are yes*):
 

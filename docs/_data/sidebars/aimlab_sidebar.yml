@@ -54,3 +54,7 @@ entries:
       url: /Python_EnvirontmentSetup.html
       output: web, pdf
       
+    - title: TensorFlow
+      url: /Python_TensorFlow.html
+      output: web, pdf
+      

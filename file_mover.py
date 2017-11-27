@@ -66,6 +66,12 @@ for key in docp:
     with open(new_file_path, 'w') as f:
       # get title and new content
       title, new_content = getTitleAndContent(old_content)
+      for i in new_content.split('\n'):
+        if '![' in i:
+          tmp = i.split('img')
+          tmp2 = tmp[0]+"pages/aimlabdocs/img"+tmp[1]
+          new_content = new_content.replace(i, tmp2)
+          print(i, 'is replaced by', tmp2)
       # write front matter to the file
       # permalink need to be html format instead of none or md
       f.write(addFrontMatter(title, utils.getJekyllDocsPath(old_file_path, format='html')))
