@@ -1,8 +1,40 @@
 # AIM Robot for Elderly Setup From Scratch
 
-- Install Raspbian to new card
-- sudo raspi-config > disable serial, enable SSH, I2C, expand filesystem (in advanced options), [change keyboard layout](https://thepihut.com/blogs/raspberry-pi-tutorials/25556740-changing-the-raspberry-pi-keyboard-layout) (localization option > keyboard layout > other > en-us > en-us > ok > sudo reboot)
-- connect to internet by adding these line in `/etc/wpa_supplicant/wpa_supplicant.conf
+This is a note on how to set up a robot from blank SD card. We use Raspbian Stretch Lite version in this instruction. [Installation guide can be found on Raspberry Pi official site](https://www.raspberrypi.org/documentation/installation/installing-images/README.md). This doc is written orderly and it is recommended to follow orderly unless you know exactly what you are doing.
+
+## Install OS
+
+- Go to [Raspbian official download site](https://www.raspberrypi.org/downloads/raspbian/).
+- Download Raspbian image file.
+- Follow [installation instruction](https://www.raspberrypi.org/documentation/installation/installing-images/README.md).
+
+## General Configurations
+
+For some reasons, the screen attached to the robot will not display correctly on newly OS installed SD card. Thus we will have to used upside down until we can connect to the robot with SSH. Almost all steps require reboot, each round would take not more than a minute.
+
+### Raspberry Pi Config
+
+Run `sudo raspi-config` and make changes as follow:
+
+- Interfacing Options
+  - Disable serial
+  - Enable SSH, I2C
+- Advanced Options
+  - Expand filesystem
+- Localisation Options
+  - [Change keyboard layout](https://thepihut.com/blogs/raspberry-pi-tutorials/25556740-changing-the-raspberry-pi-keyboard-layout) 
+    - Keyboard Layout > Other > en-US > en-US > OK
+    - Will have to reboot to see change.
+
+### WPA Config (For WiFi connection)
+
+Run following command to open WiFi setup file in editor called nano.
+
+```sh
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+```
+
+Then add these lines at the bottom of the files.
 
 ```sh
 network={
@@ -10,16 +42,26 @@ network={
     psk="lab_internet_pw"
 }
 ```
-then run `wpa_cli -i wlan0 reconfigure` should output as `OK`. You can check ip by running `ifconfig`.
 
-- connect to rpi via SSH with `ssh pi@<ip>` using default pw of rpi.
+To connect run `wpa_cli -i wlan0 reconfigure`, this should output as `OK`. You can check ip by running `ifconfig`.
 
-- fix screen rotation `sudo nano /boot/config.txt` and fill in 
+### Connect to the robot using SSH
+
+With ip from last step, we can now access the robot using SSH by running this command.
+
+```sh
+ssh pi@<ip>
+```
+
+Default password of Raspberry Pi is used.
+
+### Fix Screen Rotation
+
+Go to edit boot config file by running `sudo nano /boot/config.txt` and fill in these lines at the bottom of the file then reboot the system.
 
 ```sh
 # Custom Settings
 display_rotate=2
-sudo reboot
 ```
 
 ### Install fundamental packages
