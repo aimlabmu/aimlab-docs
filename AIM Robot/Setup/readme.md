@@ -2,31 +2,34 @@
 
 This is a note on how to set up a robot from blank SD card. We use Raspbian Stretch Lite version in this instruction. [Installation guide can be found on Raspberry Pi official site](https://www.raspberrypi.org/documentation/installation/installing-images/README.md). This doc is written orderly and it is recommended to follow orderly unless you know exactly what you are doing.
 
-## Install OS
+# Install OS
 
 - Go to [Raspbian official download site](https://www.raspberrypi.org/downloads/raspbian/).
 - Download Raspbian image file.
 - Follow [installation instruction](https://www.raspberrypi.org/documentation/installation/installing-images/README.md).
 
-## General Configurations
+
+# General Configurations
 
 For some reasons, the screen attached to the robot will not display correctly on newly OS installed SD card. Thus we will have to used upside down until we can connect to the robot with SSH. Almost all steps require reboot, each round would take not more than a minute.
 
-### Raspberry Pi config
+## Raspberry Pi config
 
 Run `sudo raspi-config` and make changes as follow:
 
 - Interfacing Options
-  - Disable serial
+  - Disable Serial
   - Enable SSH, I2C
 - Advanced Options
-  - Expand filesystem
+  - Expand Filesystem
 - Localisation Options
   - [Change keyboard layout](https://thepihut.com/blogs/raspberry-pi-tutorials/25556740-changing-the-raspberry-pi-keyboard-layout) 
     - Keyboard Layout > Other > en-US > en-US > OK
     - Will have to reboot to see change.
 
-### WPA config (For WiFi connection)
+----
+
+## WPA config (For WiFi connection)
 
 Run following command to open WiFi setup file in editor called nano.
 
@@ -45,7 +48,9 @@ network={
 
 To connect run `wpa_cli -i wlan0 reconfigure`, this should output as `OK`. You can check ip by running `ifconfig`.
 
-### Connect to the robot using SSH
+----
+
+## Connect to the robot using SSH
 
 With ip from last step, we can now access the robot using SSH by running this command.
 
@@ -55,7 +60,9 @@ ssh pi@<ip>
 
 Default password of Raspberry Pi is used.
 
-### Fix screen rotation
+----
+
+## Fix screen rotation
 
 Go to edit boot config file by running `sudo nano /boot/config.txt` and fill in these lines at the bottom of the file then reboot the system.
 
@@ -64,9 +71,11 @@ Go to edit boot config file by running `sudo nano /boot/config.txt` and fill in 
 display_rotate=2
 ```
 
-### Proxy Settings
+----
 
-Sometimes we need to use proxy, to set it do as follow:
+## Proxy settings
+
+If we have to use `AIMLAB_2.4G` to update and install package, proxy should be set for `apt-get`, to set it do as follow:
 
 ```sh
 sudo nano /etc/apt/apt.conf.d/10proxy
@@ -75,9 +84,11 @@ sudo nano /etc/apt/apt.conf.d/10proxy
 Acquire::http::proxy "http://<usr>:<pw>@proxy-sa.mahidol:8080/";
 ```
 
-### Install fundamental packages
+----
 
-#### Git
+## Install fundamental packages
+
+### Git
 
 ```sh
 sudo apt-get update
@@ -113,7 +124,7 @@ sudo apt-get install git-core
 > ```
 > Just leave it as it is, don't worry about it. For more information check these stackoverflow threads [trying to fix [1]](https://askubuntu.com/questions/162391/how-do-i-fix-my-locale-issue), [failed and why it's failed [2]](https://stackoverflow.com/questions/2499794/how-to-fix-a-locale-setting-warning-from-perl).
 
-#### [GPIO](http://wiringpi.com/download-and-install/)
+### [GPIO](http://wiringpi.com/download-and-install/)
 
 ```sh
 mkdir ~/_installations
@@ -125,10 +136,40 @@ cd ~/wiringPi
 ./build
 ```
 
-### Config tty serial port ([ref](https://raspberrypi.stackexchange.com/questions/47671/why-my-program-wont-communicate-through-ttyama0-on-raspbian-jessie/47851#47851))
+----
 
+## Install Python
 
-### Install I2C
+Get Miniconda installation script and check its checksum by running
+
+```sh
+cd ~/_installations
+
+wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-armv7l.sh
+
+md5sum Miniconda3-latest-Linux-armv7l.sh
+```
+
+Install by running
+
+```sh
+/bin/bash Miniconda3-latest-Linux-armv7l.sh
+```
+
+> For future version of miniconda please check at the [continuum repository](http://repo.continuum.io/miniconda/) and search for `Miniconda3-latest-Linux-armv7l.sh`.
+
+Finally update conda and install `ipython`
+
+```sh
+source ~/.bashrc
+
+conda update conda
+conda install ipython
+```
+
+----
+
+## Install I2C
 
 Check I2C port
 
@@ -169,9 +210,9 @@ snd-bcm2835
 
 Check i2c connections
 
-- 0x20 = Chest circle lights
-- 0x21 = Servo motors switch
-- 0x4d = Voltage level
+- `0x20` = Chest circle lights
+- `0x21` = Servo motors switch
+- `0x4d` = Voltage level
 
 ```sh
 # install tools and test with this command
@@ -194,36 +235,11 @@ pi@raspberrypi:~ $ sudo i2cdetect -y 1
 70: -- -- -- -- -- -- -- --
 ```
 
-### Install Python
+----
 
-Get Miniconda installation script and check its checksum by running
+## [Install LIRC](https://gist.github.com/prasanthj/c15a5298eb682bde34961c322c95378b)
 
-```sh
-cd ~/_installations
-
-wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-armv7l.sh
-
-md5sum Miniconda3-latest-Linux-armv7l.sh
-```
-
-Install by running
-
-```sh
-/bin/bash Miniconda3-latest-Linux-armv7l.sh
-```
-
-> For future version of miniconda please check at the [continuum repository](http://repo.continuum.io/miniconda/) and search for `Miniconda3-latest-Linux-armv7l.sh`.
-
-Finally update conda and install `ipython`
-
-```sh
-source ~/.bashrc
-
-conda update conda
-conda install ipython
-```
-
-### [Install LIRC](https://gist.github.com/prasanthj/c15a5298eb682bde34961c322c95378b)
+### Installation and pre-test
 
 Install packages
 
@@ -316,6 +332,8 @@ pulse 535
 > - http://www.raspberry-pi-geek.com/Archive/2014/03/Controlling-your-Pi-with-an-infrared-remote/(offset)/2
 > - https://www.sunfounder.com/learn/sensor-kit-v2-0-for-raspberry-pi-b-plus/lesson-23-ir-remote-control-sensor-kit-v2-0-for-b-plus.html
 
+### Set up IR keys
+
 To set IR remote manually you will have to follow these commands. However, we already have recorded config files and what we have to do is just to copy.
 
 **Manually set commands**
@@ -375,7 +393,7 @@ sudo /etc/init.d/lircd restart
 irw
 ```
 
-**Troubleshooting**
+### Troubleshooting
 
 If you follow all steps but it still doesn't work, try fix file permission as follow:
 
@@ -385,7 +403,7 @@ sudo chmod 777 /etc/lirc/lircrc
 sudo chmod 777 /etc/lirc/lircd.conf
 ```
 
-**Python sample code**
+### Python sample code
 
 ```py
 import lirc
@@ -410,6 +428,41 @@ while True:
 > - https://pypi.python.org/pypi/python-lirc
 > - http://raspberrypi.stackexchange.com/questions/37579/lirc-no-output-from-irw
 > - https://github.com/tompreston/python-lirc/blob/master/lirc/lirc.pyx
+
+----
+
+## Config tty serial port ([ref](https://raspberrypi.stackexchange.com/questions/47671/why-my-program-wont-communicate-through-ttyama0-on-raspbian-jessie/47851#47851))
+
+----
+
+## Test Motor Control
+
+Install python package [`smbus-cffi`](https://pypi.python.org/pypi/smbus-cffi/0.5.1) and its dependencies.
+
+```sh
+sudo apt-get install build-essential libi2c-dev i2c-tools python-dev libffi-dev
+
+pip install cffi
+
+pip install smbus-cffi
+```
+
+Clone branch `rpi` from following repo
+
+```sh
+mkdir _testing
+cd _testing
+
+git clone -b rpi --single-branch https://github.com/aimlabmu/dxl-cli.git
+```
+
+Change servo mode to be ready by running
+
+```sh
+python change
+```
+
+----
 
 # FAQ
 
