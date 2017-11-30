@@ -547,6 +547,17 @@ This shows that all motors (id 1-4) are connected and ready to work.
 
 ----
 
+## Installing Node.js
+
+It is pretty easy to install Node.js on Raspberry Pi, just two commands as follow:
+
+```sh
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+----
+
 ## FAQ
 
 1. if cannot connect to `/dev/ttyS0` due to **no port found** or **permission denied**, solve by 1. disable serial then reboot 2. run `sudo systemctl mask serial-getty@ttyAMA0.service` and `gpio mode 15 ALT0; gpio mode 16 ALT0` 3. change `enable_uart=0` to `enable_uart=1` in `/boot/config.txt` and reboot this should solve.
