@@ -521,8 +521,29 @@ cd dxl-cli
 When installation is finished, run these commands to set and test motors.
 
 ```sh
-python change
+python change_servo_mode.py
+
+ipython
+
+# in ipython
+Python 3.4.3 |Continuum Analytics, Inc.| (default, Aug 21 2015, 00:53:08)
+Type "copyright", "credits" or "license" for more information.
+
+IPython 4.0.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+
+In [1]: from dxlcli import BasicController
+
+In [2]: s = BasicController()
+
+In [3]: s.getConnectIds()
+Available ids are [1, 2, 3, 4]
 ```
+
+This shows that all motors (id 1-4) are connected and ready to work.
 
 ----
 
