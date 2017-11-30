@@ -14,6 +14,10 @@ entries:
       url: /AIMRobot_Manual.html
       output: web, pdf
       
+    - title: Setup
+      url: /AIMRobot_Setup.html
+      output: web, pdf
+      
   - title: AIMLAB Docs
     output: web, pdf
     folderitems: 
@@ -46,12 +50,12 @@ entries:
     output: web, pdf
     folderitems: 
     
-    - title: OpenCV
-      url: /Python_OpenCV.html
-      output: web, pdf
-      
     - title: Environtment Setup
       url: /Python_EnvirontmentSetup.html
+      output: web, pdf
+      
+    - title: OpenCV
+      url: /Python_OpenCV.html
       output: web, pdf
       
     - title: TensorFlow

@@ -1,4 +1,10 @@
-# AIM Robot for Elderly Setup From Scratch
+---
+title: AIM Robot for Elderly Setup From Scratch
+keywords: 
+sidebar: aimlab_sidebar
+permalink: AIMRobot_Setup.html
+folder: aimlabdocs
+---
 
 This is a note on how to set up a robot from blank SD card. We use Raspbian Stretch Lite version in this instruction. [Installation guide can be found on Raspberry Pi official site](https://www.raspberrypi.org/documentation/installation/installing-images/README.md). This doc is written orderly and it is recommended to follow orderly unless you know exactly what you are doing.
 
@@ -66,11 +72,7 @@ Default password of Raspberry Pi is used.
 Go to edit boot config file by running `sudo nano /boot/config.txt` and fill in these lines at the bottom of the file then reboot the system.
 
 ```sh
-### Custom Settings
-# display
-hdmi_group=2
-hdmi_mode=87
-hdmi_cvt 800 480 60 6 0 0 0
+# Custom Settings
 display_rotate=2
 ```
 
@@ -290,11 +292,13 @@ LIRCD_CONF=""
 LIRCMD_CONF=""
 ```
 
-Add the following lines to `/boot/config.txt`, then save and reboot with `sudo reboot`.
+Add the following lines to `/boot/config.txt`
 
 ```sh
-# lirc
 dtoverlay=lirc-rpi:gpio_in_pin=4
+
+# save and reboot
+sudo reboot
 ```
 
 Update the following lines to `/etc/lirc/lirc_options.conf`
@@ -332,9 +336,9 @@ pulse 535
 
 > REF.
 >
-> - [Setting up LIRC on the Raspberry Pi](http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/)
-> - [Controlling your Pi with an infrared remote](http://www.raspberry-pi-geek.com/Archive/2014/03/Controlling-your-Pi-with-an-infrared-remote/(offset)/2)
-> - [Lesson 23: IR remote control sensor kit v2.0 for B+](https://www.sunfounder.com/learn/sensor-kit-v2-0-for-raspberry-pi-b-plus/lesson-23-ir-remote-control-sensor-kit-v2-0-for-b-plus.html)
+> - http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/
+> - http://www.raspberry-pi-geek.com/Archive/2014/03/Controlling-your-Pi-with-an-infrared-remote/(offset)/2
+> - https://www.sunfounder.com/learn/sensor-kit-v2-0-for-raspberry-pi-b-plus/lesson-23-ir-remote-control-sensor-kit-v2-0-for-b-plus.html
 
 ### Set up IR keys
 
@@ -355,8 +359,8 @@ sudo cp ~/lircd.conf /etc/lirc/lircd.conf
 
 > REF.
 >
-> - [Setting up LIRC on the Raspberry Pi](http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/)
-> - [Linux IR: irrecord guide](http://www.ocinside.de/html/modding/linux_ir_irrecord_guide.html)
+> - http://alexba.in/blog/2013/01/06/setting-up-lirc-on-the-raspberrypi/
+> - http://www.ocinside.de/html/modding/linux_ir_irrecord_guide.html
 
 #### Copy commands
 
@@ -431,78 +435,29 @@ while True:
 
 > REF.
 >
-> - [python-lirc](https://pypi.python.org/pypi/python-lirc)
-> - [LIRC no output from irw](http://raspberrypi.stackexchange.com/questions/37579/lirc-no-output-from-irw)
-> - [github.com/tompreston/python-lirc/blob/master/lirc/lirc.pyx](https://github.com/tompreston/python-lirc/blob/master/lirc/lirc.pyx)
+> - https://pypi.python.org/pypi/python-lirc
+> - http://raspberrypi.stackexchange.com/questions/37579/lirc-no-output-from-irw
+> - https://github.com/tompreston/python-lirc/blob/master/lirc/lirc.pyx
 
 ----
 
-## [Config tty serial port](https://raspberrypi.stackexchange.com/questions/47671/why-my-program-wont-communicate-through-ttyama0-on-raspbian-jessie/47851#47851)
-
-As we have already disabled SSH in `raspi-config`, what we have to do next is to ensure that `/boot/cmdline.txt` has no ttyAMA0.
-
-```sh
-sudo cat /boot/cmdline.txt | grep ttyAMA0
-
-# there should be no output
-```
-
-Then set the UART pins (15 and 16 wPi) state to ALT0.
-
-```sh
-gpio mode 15 ALT0; gpio mode 16 ALT0
-
-# then check by gpio readall
-gpio readall
-
-# output (the format may not correct on narrow screen)
- +-----+-----+---------+------+---+---Pi 3---+---+------+---------+-----+-----+
- | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
- +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+
- |     |     |    3.3v |      |   |  1 || 2  |   |      | 5v      |     |     |
- |   2 |   8 |   SDA.1 | ALT0 | 1 |  3 || 4  |   |      | 5v      |     |     |
- |   3 |   9 |   SCL.1 | ALT0 | 1 |  5 || 6  |   |      | 0v      |     |     |
- |   4 |   7 | GPIO. 7 |   IN | 1 |  7 || 8  | 1 | ALT0 | TxD     | 15  | 14  |
- |     |     |      0v |      |   |  9 || 10 | 1 | ALT0 | RxD     | 16  | 15  |
- |  17 |   0 | GPIO. 0 |  OUT | 0 | 11 || 12 | 0 | OUT  | GPIO. 1 | 1   | 18  |
- |  27 |   2 | GPIO. 2 |   IN | 0 | 13 || 14 |   |      | 0v      |     |     |
- |  22 |   3 | GPIO. 3 |   IN | 0 | 15 || 16 | 0 | IN   | GPIO. 4 | 4   | 23  |
- |     |     |    3.3v |      |   | 17 || 18 | 0 | IN   | GPIO. 5 | 5   | 24  |
- |  10 |  12 |    MOSI | ALT0 | 0 | 19 || 20 |   |      | 0v      |     |     |
- |   9 |  13 |    MISO |  OUT | 1 | 21 || 22 | 1 | IN   | GPIO. 6 | 6   | 25  |
- |  11 |  14 |    SCLK | ALT0 | 0 | 23 || 24 | 0 | OUT  | CE0     | 10  | 8   |
- |     |     |      0v |      |   | 25 || 26 | 1 | OUT  | CE1     | 11  | 7   |
- |   0 |  30 |   SDA.0 |   IN | 1 | 27 || 28 | 1 | IN   | SCL.0   | 31  | 1   |
- |   5 |  21 | GPIO.21 |  OUT | 0 | 29 || 30 |   |      | 0v      |     |     |
- |   6 |  22 | GPIO.22 |   IN | 1 | 31 || 32 | 0 | IN   | GPIO.26 | 26  | 12  |
- |  13 |  23 | GPIO.23 |   IN | 1 | 33 || 34 |   |      | 0v      |     |     |
- |  19 |  24 | GPIO.24 |   IN | 1 | 35 || 36 | 0 | IN   | GPIO.27 | 27  | 16  |
- |  26 |  25 | GPIO.25 |   IN | 1 | 37 || 38 | 1 | IN   | GPIO.28 | 28  | 20  |
- |     |     |      0v |      |   | 39 || 40 | 0 | IN   | GPIO.29 | 29  | 21  |
- +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+
- | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
- +-----+-----+---------+------+---+---Pi 3---+---+------+---------+-----+-----+
-```
-
-Finally, add these lines to `/boot/config.txt`. Those commented lines were needed in Raspbian Jessie, so we put it here in case we happen to need it again.
-
-```sh
-# Set uart clock
-enable_uart=1
-#init_uart_clock=16000000
-#sudo stty -F /dev/ttyAMA0 1000000
-
-# Workaround for uart on RPi3
-#core_freq=250
-```
-
-After rebooting, motors should be seen.
+## Config tty serial port ([ref](https://raspberrypi.stackexchange.com/questions/47671/why-my-program-wont-communicate-through-ttyama0-on-raspbian-jessie/47851#47851))
 
 ----
 
 ## Test Motor Control
 
-Clone branch `rpi` from [dxl-cli](github.com/aimlabmu/dxl-cli.git) repo.
+Install python package [`smbus-cffi`](https://pypi.python.org/pypi/smbus-cffi/0.5.1) and its dependencies.
+
+```sh
+sudo apt-get install build-essential libi2c-dev i2c-tools python-dev libffi-dev
+
+pip install cffi pyserial rpi.gpio
+
+pip install smbus-cffi
+```
+
+Clone branch `rpi` from following repo
 
 ```sh
 mkdir _testing
@@ -511,14 +466,7 @@ cd _testing
 git clone -b rpi --single-branch https://github.com/aimlabmu/dxl-cli.git
 ```
 
-Install dependencies using provided script.
-
-```sh
-cd dxl-cli
-./install-dependencies.sh
-```
-
-When installation is finished, run these commands to set and test motors.
+Change servo mode to be ready by running
 
 ```sh
 python change
