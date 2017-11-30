@@ -547,7 +547,7 @@ This shows that all motors (id 1-4) are connected and ready to work.
 
 ----
 
-## Installing Node.js
+## [Installing Node.js](https://nodejs.org/en/download/package-manager/)
 
 It is pretty easy to install Node.js on Raspberry Pi, just two commands as follow:
 
@@ -557,6 +557,28 @@ sudo apt-get install -y nodejs
 ```
 
 ----
+
+## [Installing Go](https://medium.com/@danbruder/installing-golang-1-9-on-raspberry-pi-3bv1-2-cde38f298c7e)
+
+For Golang, it is also pretty easy, but we will need to export path on our own. To find the latest version check [this](https://golang.org/dl/) out and look for `gox.x.x.linux-armv6l.tar.gz`.
+
+```sh
+cd ~/_installations
+wget https://storage.googleapis.com/golang/go1.9.2.linux-armv6l.tar.gz
+sudo tar -C /usr/local -xzf go1.9.2.linux-armv6l.tar.gz
+```
+
+And add this line to `~/.bashrc`.
+
+```sh
+export PATH=$PATH:/usr/local/go/bin:~/go/bin 
+```
+
+Don't forget to create directory for it.
+
+```sh
+mkdir ~/go
+```
 
 ## FAQ
 
