@@ -505,8 +505,8 @@ After rebooting, motors should be seen.
 Clone branch `rpi` from [dxl-cli](github.com/aimlabmu/dxl-cli.git) repo.
 
 ```sh
-mkdir _testing
-cd _testing
+mkdir ~/_testing
+cd ~/_testing
 
 git clone -b rpi --single-branch https://github.com/aimlabmu/dxl-cli.git
 ```
@@ -582,6 +582,9 @@ mkdir ~/go
 
 ## FAQ
 
-1. if cannot connect to `/dev/ttyS0` due to **no port found** or **permission denied**, solve by 1. disable serial then reboot 2. run `sudo systemctl mask serial-getty@ttyAMA0.service` and `gpio mode 15 ALT0; gpio mode 16 ALT0` 3. change `enable_uart=0` to `enable_uart=1` in `/boot/config.txt` and reboot this should solve.
+- if cannot connect to `/dev/ttyS0` due to **no port found** or **permission denied**, solve by:
+  1. disable serial then reboot 
+  2. run `sudo systemctl mask serial-getty@ttyAMA0.service` and `gpio mode 15 ALT0; gpio mode 16 ALT0` 
+  3. change `enable_uart=0` to `enable_uart=1` in `/boot/config.txt` and reboot this should solve.
 
 
