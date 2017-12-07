@@ -511,8 +511,8 @@ After rebooting, motors should be seen.
 Clone branch `rpi` from [dxl-cli](github.com/aimlabmu/dxl-cli.git) repo.
 
 ```sh
-mkdir _testing
-cd _testing
+mkdir ~/_testing
+cd ~/_testing
 
 git clone -b rpi --single-branch https://github.com/aimlabmu/dxl-cli.git
 ```
@@ -553,7 +553,7 @@ This shows that all motors (id 1-4) are connected and ready to work.
 
 ----
 
-## Installing Node.js
+## [Installing Node.js](https://nodejs.org/en/download/package-manager/)
 
 It is pretty easy to install Node.js on Raspberry Pi, just two commands as follow:
 
@@ -564,8 +564,59 @@ sudo apt-get install -y nodejs
 
 ----
 
+## [Installing Go](https://medium.com/@danbruder/installing-golang-1-9-on-raspberry-pi-3bv1-2-cde38f298c7e)
+
+For Golang, it is also pretty easy, but we will need to export path on our own. To find the latest version check [this](https://golang.org/dl/) out and look for `gox.x.x.linux-armv6l.tar.gz`.
+
+```sh
+cd ~/_installations
+wget https://storage.googleapis.com/golang/go1.9.2.linux-armv6l.tar.gz
+sudo tar -C /usr/local -xzf go1.9.2.linux-armv6l.tar.gz
+```
+
+And add this line to `~/.bashrc`.
+
+```sh
+export PATH=$PATH:/usr/local/go/bin:~/go/bin 
+```
+
+Don't forget to create directory for it.
+
+```sh
+mkdir ~/go
+```
+
+----
+
+## Installing X
+
+Since `libuiohook` need to capture keyboard events from X server, but we installed Raspbian Lite version which does not include X. So that we have to install X and have a little config ourselves.
+
+### Dependencies
+
+```sh
+sudo apt-get --no-install-recommends install xserver-xorg xserver-xorg-video-fbdev xinit pciutils xinput xfonts-100dpi xfonts-75dpi xfonts-scalable lightdm
+```
+
+### Configuration
+
+We need to config the system, so that it logs into system automatically after starting X.
+
+```sh
+sudo raspi-config
+```
+
+Then go to set `Boot Options` as `Desktop and Auto Login`.
+
+> REF. [To install X [1]](https://raspberrypi.stackexchange.com/a/66594), [To install Login Manager [2]](https://www.raspberrypi.org/forums/viewtopic.php?t=133691)
+
+----
+
 ## FAQ
 
-1. if cannot connect to `/dev/ttyS0` due to **no port found** or **permission denied**, solve by 1. disable serial then reboot 2. run `sudo systemctl mask serial-getty@ttyAMA0.service` and `gpio mode 15 ALT0; gpio mode 16 ALT0` 3. change `enable_uart=0` to `enable_uart=1` in `/boot/config.txt` and reboot this should solve.
+- if cannot connect to `/dev/ttyS0` due to **no port found** or **permission denied**, solve by:
+  1. disable serial then reboot 
+  2. run `sudo systemctl mask serial-getty@ttyAMA0.service` and `gpio mode 15 ALT0; gpio mode 16 ALT0` 
+  3. change `enable_uart=0` to `enable_uart=1` in `/boot/config.txt` and reboot this should solve.
 
 

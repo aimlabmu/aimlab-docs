@@ -580,6 +580,32 @@ Don't forget to create directory for it.
 mkdir ~/go
 ```
 
+----
+
+## Installing X
+
+Since `libuiohook` need to capture keyboard events from X server, but we installed Raspbian Lite version which does not include X. So that we have to install X and have a little config ourselves.
+
+### Dependencies
+
+```sh
+sudo apt-get --no-install-recommends install xserver-xorg xserver-xorg-video-fbdev xinit pciutils xinput xfonts-100dpi xfonts-75dpi xfonts-scalable lightdm
+```
+
+### Configuration
+
+We need to config the system, so that it logs into system automatically after starting X.
+
+```sh
+sudo raspi-config
+```
+
+Then go to set `Boot Options` as `Desktop and Auto Login`.
+
+> REF. [To install X [1]](https://raspberrypi.stackexchange.com/a/66594), [To install Login Manager [2]](https://www.raspberrypi.org/forums/viewtopic.php?t=133691)
+
+----
+
 ## FAQ
 
 - if cannot connect to `/dev/ttyS0` due to **no port found** or **permission denied**, solve by:

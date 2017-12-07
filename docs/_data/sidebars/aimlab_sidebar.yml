@@ -14,8 +14,12 @@ entries:
       url: /AIMRobot_Manual.html
       output: web, pdf
       
-    - title: Setup
-      url: /AIMRobot_Setup.html
+    - title: Elderly Robot Setup
+      url: /AIMRobot_ElderlyRobotSetup.html
+      output: web, pdf
+      
+    - title: Base Setup
+      url: /AIMRobot_BaseSetup.html
       output: web, pdf
       
   - title: AIMLAB Docs
