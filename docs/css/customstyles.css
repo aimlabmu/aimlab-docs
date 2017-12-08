@@ -933,9 +933,11 @@ a[href^="http://"]:after, a[href^="https://"]:after {
     font-family: FontAwesome;
     font-weight: normal;
     font-style: normal;
+    font-size: 12px;
     display: inline-block;
     text-decoration: none;
     padding-left: 3px;
+    padding-top: 3px;
 }
 
 /* Strip the outbound icon when this class is present */

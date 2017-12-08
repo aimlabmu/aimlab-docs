@@ -1,4 +1,10 @@
-# AIM Robot for Elderly Setup From Scratch
+---
+title: AIM Robot for Elderly Setup From Scratch
+keywords: 
+sidebar: aimlab_sidebar
+permalink: AIMRobot_BaseSetup.html
+folder: aimlabdocs
+---
 
 This is a note on how to set up a robot from blank SD card. We use Raspbian Stretch Lite version in this instruction. [Installation guide can be found on Raspberry Pi official site](https://www.raspberrypi.org/documentation/installation/installing-images/README.md). This doc is written orderly and it is recommended to follow orderly unless you know exactly what you are doing.
 
